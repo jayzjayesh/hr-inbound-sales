@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inbound Carrier Sales — Analytics Dashboard</title>
+    <meta name="description" content="Real-time analytics dashboard for HappyRobot Inbound Carrier Sales automation.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-left">
+            <div class="logo">
+                <div class="logo-icon">🤖</div>
+                <div>
+                    <h1>Inbound Carrier Sales</h1>
+                    <p class="subtitle">Analytics Dashboard</p>
+                </div>
+            </div>
+        </div>
+        <div class="header-right">
+            <div class="status-badge" id="statusBadge">
+                <span class="pulse"></span>
+                <span>Live</span>
+            </div>
+            <span class="last-updated" id="lastUpdated">Updating...</span>
+        </div>
+    </header>
+
+    <!-- KPI Cards -->
+    <section class="kpi-grid">
+        <div class="kpi-card" id="kpiTotalCalls">
+            <div class="kpi-icon">📞</div>
+            <div class="kpi-content">
+                <span class="kpi-value" id="totalCalls">—</span>
+                <span class="kpi-label">Total Calls</span>
+            </div>
+            <div class="info-icon" data-tooltip="Total number of inbound carrier calls processed by the AI agent.">ⓘ</div>
+        </div>
+        <div class="kpi-card" id="kpiSuccessRate">
+            <div class="kpi-icon">✅</div>
+            <div class="kpi-content">
+                <span class="kpi-value" id="successRate">—</span>
+                <span class="kpi-label">Success Rate</span>
+            </div>
+            <div class="info-icon" data-tooltip="Percentage of calls where the carrier agreed to book a load. Calculated as: (Successful calls ÷ Total calls) × 100.">ⓘ</div>
+        </div>
+        <div class="kpi-card" id="kpiAvgRevenue">
+            <div class="kpi-icon">💰</div>
+            <div class="kpi-content">
+                <span class="kpi-value" id="avgRevenue">—</span>
+                <span class="kpi-label">Avg Revenue / Call</span>
+            </div>
+            <div class="info-icon" data-tooltip="Average agreed rate across all successfully booked loads. Only includes calls where a deal was closed.">ⓘ</div>
+        </div>
+        <div class="kpi-card" id="kpiSavings">
+            <div class="kpi-icon">📉</div>
+            <div class="kpi-content">
+                <span class="kpi-value" id="avgSavings">—</span>
+                <span class="kpi-label">Avg Negotiation Savings</span>
+            </div>
+            <div class="info-icon" data-tooltip="Average percentage saved below the loadboard rate through negotiation. Calculated as: ((Loadboard Rate − Agreed Rate) ÷ Loadboard Rate) × 100, averaged across all booked loads.">ⓘ</div>
+        </div>
+    </section>
+
+    <!-- Charts Row 1 -->
+    <section class="charts-row">
+        <div class="chart-card">
+            <h3 class="chart-title">Call Outcomes</h3>
+            <div class="chart-container chart-container-sm">
+                <canvas id="outcomesChart"></canvas>
+            </div>
+        </div>
+        <div class="chart-card">
+            <h3 class="chart-title">Carrier Sentiment</h3>
+            <div class="chart-container chart-container-sm">
+                <canvas id="sentimentChart"></canvas>
+            </div>
+        </div>
+        <div class="chart-card chart-card-wide">
+            <h3 class="chart-title">Call Volume Over Time</h3>
+            <div class="chart-container">
+                <canvas id="volumeChart"></canvas>
+            </div>
+        </div>
+    </section>
+
+    <!-- Charts Row 2 -->
+    <section class="charts-row">
+        <div class="chart-card chart-card-wide">
+            <h3 class="chart-title">Negotiation Performance</h3>
+            <p class="chart-subtitle">Loadboard Rate vs. Agreed Rate</p>
+            <div class="chart-container">
+                <canvas id="negotiationChart"></canvas>
+            </div>
+        </div>
+        <div class="chart-card">
+            <h3 class="chart-title">Top Lanes</h3>
+            <div class="chart-container">
+                <canvas id="lanesChart"></canvas>
+            </div>
+        </div>
+    </section>
+
+    <!-- Recent Calls Table -->
+    <section class="table-section">
+        <div class="chart-card">
+            <h3 class="chart-title">Recent Calls</h3>
+            <div class="table-container">
+                <table id="callsTable">
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>Carrier</th>
+                            <th>Lane</th>
+                            <th>Equipment</th>
+                            <th>Outcome</th>
+                            <th>Sentiment</th>
+                            <th>Listed Rate</th>
+                            <th>Agreed Rate</th>
+                            <th>Rounds</th>
+                            <th>Duration</th>
+                        </tr>
+                    </thead>
+                    <tbody id="callsTableBody">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>Powered by <strong>HappyRobot</strong> × <strong>Inbound Carrier Sales API</strong></p>
+    </footer>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>

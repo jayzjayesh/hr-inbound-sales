@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: inbound-carrier-sales-api
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: FMCSA_API_KEY
+        sync: false
+      - key: API_KEY
+        sync: false
+      - key: NEGOTIATION_FLOOR
+        value: "0.90"
